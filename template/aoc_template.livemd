@@ -4,23 +4,29 @@
 :inets.start()
 :ssl.start()
 
-base_url = "https://adventofcode.com/{{YEAR}}/day/{{DAY}}"
-input_url = base_url <> "/input"
-headers = [{~c"Cookie", ~c"session=#{System.fetch_env!("LB_AOC_TOKEN")}"}]
+endpoint = ~c"https://adventofcode.com/{{YEAR}}/day/{{DAY}}/input"
+token = System.fetch_env!("LB_AOC_TOKEN")
 
-{:ok, {{_, 200, _}, _, body}} = :httpc.request(:get, {to_charlist(input_url), headers}, [], [])
-IO.inspect("The puzzle can be found at #{base_url}")
-input =  String.trim(to_string(body))
+{:ok, {{_, 200, _}, _, body}} = :httpc.request(:get, {endpoint, [{~c"Cookie", ~c"session=#{token}"}]}, [], [])
+
+raw_input = String.trim(to_string(body))
 ```
 
-## Part 1
+## Solution
 
+The puzzle can be located [here](https://adventofcode.com/{{YEAR}}/day/{{DAY}}).
+
+**Common Code**
+```elixir
+input =
+  raw_input
+  # |> String.split("\n")
+```
+**Part 1**
 ```elixir
 input
 ```
-
-## Part 2
-
+**Part 2**
 ```elixir
 input
 ```
