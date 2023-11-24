@@ -10,7 +10,7 @@ headers = [{~c"Cookie", ~c"session=#{System.fetch_env!("LB_AOC_TOKEN")}"}]
 
 {:ok, {{_, 200, _}, _, body}} = :httpc.request(:get, {to_charlist(input_url), headers}, [], [])
 IO.inspect("The puzzle can be found at #{base_url}")
-input = to_string(body)
+input =  String.trim(to_string(body))
 ```
 
 ## Part 1
