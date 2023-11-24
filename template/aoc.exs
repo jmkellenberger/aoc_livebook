@@ -1,4 +1,4 @@
-template = File.read!("aoc_template.livemd")
+template = File.read!("template/aoc_template.livemd")
 
 %{day: current_day, month: current_month, year: current_year} = Date.utc_today()
 
@@ -47,9 +47,7 @@ generate_template = fn day, year ->
 
   # Check if the file already exists
   if File.exists?(output_path) do
-    IO.puts(
-      "Livebook template for Advent of Code #{year}, Day #{day} already exists at #{output_path}"
-    )
+    raise "Livebook template for Advent of Code #{year}, Day #{day} already exists at #{output_path}"
   else
     File.mkdir_p!(output_dir)
 
@@ -64,7 +62,7 @@ end
 try_generate_template = fn day, year ->
   case validate_input.(day, year) do
     :ok -> generate_template.(day, year)
-    {:error, msg} -> IO.puts(msg)
+    {:error, msg} -> raise msg
   end
 end
 
