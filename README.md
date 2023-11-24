@@ -3,7 +3,7 @@
 A simple script to generate and launch Livebooks for Advent of Code puzzles.
 
 ## Requirements
-- Your Advent of Code session token set as a Livebook secret: `LB_AOC_TOKEN`.
+- Your Advent of Code session token set as a Livebook secret: `AOC_TOKEN`.
 
 - Make sure Livebook is installed with `mix escript.install hex livebook`.
 
@@ -18,7 +18,7 @@ A simple script to generate and launch Livebooks for Advent of Code puzzles.
 
    bin/gen 1 # Day 1 of the Current Year
 
-   bin/gen 1 # Today's puzzle, if any.
+   bin/gen # Today's puzzle, if any.
    ```
 
   The generated Livebooks are located at `aoc_livebook/$year/aoc_$day.livemd`.
