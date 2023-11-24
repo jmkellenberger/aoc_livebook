@@ -5,8 +5,8 @@ validate_input = fn d, y ->
     d not in 1..25 ->
       {:error, "Day must be between 1 and 25."}
 
-    y not in 2016..current_year ->
-      {:error, "Year must be a valid AoC year (2016 - #{current_year})."}
+    y not in 2015..current_year ->
+      {:error, "Year must be a valid AoC year (2015 - #{current_year})."}
 
     y == current_year and not current_month == 12 ->
       {:error,
