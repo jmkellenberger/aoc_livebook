@@ -21,5 +21,6 @@ A simple script to generate and launch Livebooks for Advent of Code puzzles.
    bin/gen 1 # Today's puzzle, if any.
    ```
 
-## Notes
-- The generated Livebooks are located at `aoc_livebook/$year/aoc_$day.livemd`.
+  The generated Livebooks are located at `aoc_livebook/$year/aoc_$day.livemd`.
+
+
