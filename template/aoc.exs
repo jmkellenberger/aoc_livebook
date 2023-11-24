@@ -28,7 +28,9 @@ generate_template = fn day, year ->
       output_path = Path.join(output_dir, output_file)
 
       if File.exists?(output_path) do
-        raise "Livebook template for Advent of Code #{year}, Day #{day} already exists at #{output_path}"
+        IO.puts(
+          "Livebook template for Advent of Code #{year}, Day #{day} already exists at #{output_path}"
+        )
       else
         template_content =
           "template/aoc_template.livemd"
@@ -44,6 +46,8 @@ generate_template = fn day, year ->
           "Generated Livebook template for Advent of Code #{year}, Day #{day} at #{output_path}"
         )
       end
+
+      IO.puts("Opening livebook at #{output_path}")
   end
 end
 

@@ -3,6 +3,6 @@
 result=$(elixir template/aoc.exs "$@")
 
 if [ $? -eq 0 ]; then
-  new_file_path=$(echo "$result" | awk '/Generated Livebook template for Advent of Code/{print $NF}')
-  Livebook server "$new_file_path"
+  new_file_path=$(echo "$result" | awk '/Opening livebook at /{print $NF}')
+  livebook server "$new_file_path"
 fi
