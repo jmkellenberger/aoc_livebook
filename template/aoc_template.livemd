@@ -4,7 +4,7 @@
 :inets.start()
 :ssl.start()
 
-base_url = "https://adventofcode.com/2017/day/1"
+base_url = "https://adventofcode.com/{{YEAR}}/day/{{DAY}}"
 input_url = base_url <> "/input"
 headers = [{~c"Cookie", ~c"session=#{System.fetch_env!("LB_AOC_TOKEN")}"}]
 
