@@ -1,32 +1,14 @@
-template = File.read!("template/aoc_template.livemd")
-
 %{day: current_day, month: current_month, year: current_year} = Date.utc_today()
-
-is_december? = current_month == 12
-
-args =
-  System.argv()
-  |> Enum.map(&Integer.parse/1)
-  |> Enum.map(fn
-    {int, _} ->
-      int
-
-    :error ->
-      :error
-  end)
-
-valid_day? = fn d -> d in 1..25 end
-valid_year? = fn y -> y in 2016..current_year end
 
 validate_input = fn d, y ->
   cond do
-    not valid_day?.(d) ->
+    d not in 1..25 ->
       {:error, "Day must be between 1 and 25."}
 
-    not valid_year?.(y) ->
+    y not in 2016..current_year ->
       {:error, "Year must be a valid AoC year (2016 - #{current_year})."}
 
-    y == current_year and not is_december? ->
+    y == current_year and not current_month == 12 ->
       {:error,
        "Advent of Code does not start until December 1st. Try a previous year in the meantime."}
 
@@ -36,43 +18,51 @@ validate_input = fn d, y ->
 end
 
 generate_template = fn day, year ->
-  template_content =
-    template
-    |> String.replace("{{YEAR}}", Integer.to_string(year))
-    |> String.replace("{{DAY}}", Integer.to_string(day))
-
-  output_dir = Integer.to_string(year)
-  output_file = "aoc_#{String.pad_leading(Integer.to_string(day), 2, "0")}.livemd"
-  output_path = Path.join(output_dir, output_file)
-
-  # Check if the file already exists
-  if File.exists?(output_path) do
-    raise "Livebook template for Advent of Code #{year}, Day #{day} already exists at #{output_path}"
-  else
-    File.mkdir_p!(output_dir)
-
-    File.write!(output_path, template_content)
-
-    IO.puts(
-      "Generated Livebook template for Advent of Code #{year}, Day #{day} at #{output_path}"
-    )
-  end
-end
-
-try_generate_template = fn day, year ->
   case validate_input.(day, year) do
-    :ok -> generate_template.(day, year)
-    {:error, msg} -> raise msg
+    {:error, msg} ->
+      raise msg
+
+    :ok ->
+      output_dir = to_string(year)
+      output_file = "aoc_#{String.pad_leading(to_string(day), 2, "0")}.livemd"
+      output_path = Path.join(output_dir, output_file)
+
+      if File.exists?(output_path) do
+        raise "Livebook template for Advent of Code #{year}, Day #{day} already exists at #{output_path}"
+      else
+        template_content =
+          "template/aoc_template.livemd"
+          |> File.read!()
+          |> String.replace("{{YEAR}}", to_string(year))
+          |> String.replace("{{DAY}}", to_string(day))
+
+        File.mkdir_p!(output_dir)
+
+        File.write!(output_path, template_content)
+
+        IO.puts(
+          "Generated Livebook template for Advent of Code #{year}, Day #{day} at #{output_path}"
+        )
+      end
   end
 end
 
-case args do
+System.argv()
+|> Enum.map(&Integer.parse/1)
+|> Enum.map(fn
+  {int, _} ->
+    int
+
+  :error ->
+    :error
+end)
+|> case do
   [] ->
-    try_generate_template.(current_day, current_year)
+    generate_template.(current_day, current_year)
 
   [day] ->
-    try_generate_template.(day, current_year)
+    generate_template.(day, current_year)
 
   [day, year | _] ->
-    try_generate_template.(day, year)
+    generate_template.(day, year)
 end

@@ -3,9 +3,9 @@
 A simple script to generate and launch Livebooks for Advent of Code puzzles.
 
 ## Requirements
-1. Your Advent of Code session token set as a Livebook secret: `LB_AOC_TOKEN`.
+- Your Advent of Code session token set as a Livebook secret: `LB_AOC_TOKEN`.
 
-2. Make sure Livebook is installed with `mix` with `mix escript.install hex livebook`.
+- Make sure Livebook is installed with `mix escript.install hex livebook`.
 
 ## Getting Started
 1. `git clone https://github.com/jmkellenberger/aoc_livebook.git`
