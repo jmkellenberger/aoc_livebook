@@ -8,9 +8,7 @@ A simple script to generate and launch Livebooks for Advent of Code puzzles.
 - Make sure Livebook is installed with `mix escript.install hex livebook`.
 
 ## Getting Started
-1. `git clone https://github.com/jmkellenberger/aoc_livebook.git`
-
-2. `cd aoc_livebook`
+1. Clone the repository and `cd aoc_livebook`
 
 3. Run `bin/gen day year` to generate and launch a Livebook for a specific Advent of Code puzzle.
 
