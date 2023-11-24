@@ -1,0 +1,53 @@
+# Advent of Code {{YEAR}} - Day {{DAY}}
+
+```elixir
+Mix.install([
+  {:kino, "~> 0.11.0"}
+])
+
+:inets.start()
+:ssl.start()
+```
+
+## Library
+
+```elixir
+defmodule Aoc do
+  @headers [{~c"Cookie", ~c"session=#{System.fetch_env!("LB_AOC_TOKEN")}"}]
+
+  def input_lines(input), do: String.split(input, "\n", trim: true)
+
+  def fetch_input(year, day) do
+    with {:ok, {{_, 200, _}, _, body}} <- get(input_url(year, day)) do
+      IO.inspect("The puzzle can be found at #{puzzle_url(year, day)}")
+      to_string(body)
+    end
+  end
+
+  defp puzzle_url(year, day), do: "https://adventofcode.com/#{year}/day/#{day}"
+  defp input_url(year, day), do: puzzle_url(year, day) <> "/input"
+
+  defp get(endpoint),
+    do: :httpc.request(:get, {to_charlist(endpoint), @headers}, [], [])
+end
+```
+
+## Puzzle Input
+
+```elixir
+input = Aoc.fetch_input({{YEAR}}, {{DAY}})
+```
+
+## Part 1
+
+```elixir
+
+```
+
+## Part 2
+
+```elixir
+
+```
+
+<!-- livebook:{"offset":901,"stamp":{"token":"XCP.j8hEWc38imrJYVdGCYFEc0iOfm66GysRB5M2xbauxfd5iTlrXQ94iYPt2E315i7tpNAelNqj8cDC7q1s2CyigeJ_UEUEks-If8bjN9SabtTIM9vP","version":2}} -->
